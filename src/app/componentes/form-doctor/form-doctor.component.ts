@@ -19,7 +19,6 @@ export class FormDoctorComponent implements OnInit {
     this.doctorDataService.getdoctor()
     .subscribe(doctor=>{
       this.doctores=doctor
-      console.log(this.doctores)
     });
   }
   ngOnInit(): void {
@@ -56,18 +55,19 @@ export class FormDoctorComponent implements OnInit {
     });
   }
 
-  editpaciente(i){
+  editdoctor(i){
     this.model1.numeroCredencial=this.doctores[i].numeroCredencial;
     this.model1.nombreCompleto=this.doctores[i].nombreCompleto;
     this.model1.especialidad=this.doctores[i].especialidad;
     this.model1.telefonoContacto=this.doctores[i].telefonoContacto;
     this.model1.email=this.doctores[i].email;
     this.model1.hospitalDeTrabajo=this.doctores[i].hospitalDeTrabajo;
+    this.model1.id=this.doctores[i].id,
     this.metodoadd=false;
     this.metodoact=true;
   }
 
-  updatepaciente()
+  updatedoctor()
   {
     this.doctorDataService.edidoctor(this.model1)
     .subscribe(data=>{

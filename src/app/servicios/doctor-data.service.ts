@@ -21,11 +21,11 @@ export class DoctorDataService {
   }
 
   edidoctor(newdoctor:Doctor){
+    console.log(newdoctor);
   return this.http.put<Doctor>(`${this.url}/api/Doctores/${newdoctor.id}`,newdoctor)
   .map(res=>res);
   }
-
-  erasedoctor(id){
+    erasedoctor(id){
     return this.http.delete<Doctor>(`${this.url}/api/Doctores/${id}`)
     .map(res=>res);
    }
