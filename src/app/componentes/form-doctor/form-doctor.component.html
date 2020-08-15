@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card animated animated flipInY">
+            <div class="card-header">
+                <h4>Manejo de Doctores </h4>
+            </div>
+            <div class="card-body">
+                <form class="form">
+                    <div class="input-group">
+                        <div class="form-group">
+                            <input name="Numerocredencial" type="text" [(ngModel)]="model1.numeroCredencial"
+                                class="form-control" placeholder="Numero de Credencial" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="NombreCompleto1" type="text" [(ngModel)]="model1.nombrecompleto" class="form-control"
+                                placeholder="Nombre Completo" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="especialidad1" type="text" [(ngModel)]="model1.especialidad"
+                                class="form-control" placeholder="especialidad" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="telefonocontacto1" type="text" [(ngModel)]="model1.telefonoContacto" class="form-control"
+                                placeholder="Telefono contacto" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Email1" [(ngModel)]="model1.email" class="form-control"
+                                placeholder="Email" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <input name="Hospitaldetrabajo" type="text" [(ngModel)]="model1.hospitalDeTrabajo"
+                                class="form-control" placeholder="Hospital donde trabaja" value="" autofocus>
+                        </div>
+                        <div *ngIf="metodoadd" class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit" (click)="adddoctor($event)"> Grabar</button>
+                        </div>
+                        <div *ngIf="metodoact" class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit" (click)="updatedoctor()"> Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1 class="text-center">Lista de Doctores</h1>
+<div class="row">
+    <div class="col-md-9 mx-auto">
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Num.Credencial</th>
+                    <th>Nombre</th>
+                    <th>Especialidad</th>
+                    <th>Editar</th>
+                    <th>Lis_Pacientes</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            <tbody>
+                <tr *ngFor="let pa of doctores;let i=index">
+
+                    <td >
+                         {{pa.numeroCredencial}}
+                    <td >
+                        {{pa.nombreCompleto}}
+                    </td>
+                    <td>
+                        {{pa.especialidad}}
+                    </td>
+                    <!--<td>
+                        <button class="btn btn-danger" (click)="borradoctor(pa.id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>-->
+                    <td class="align-center">
+                        <button class="btn btn-primary" (click)="editdoctor(i)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
+                    <td class="align-center">
+                        <button class="btn btn-success" (click)="listpacientes(pa)">
+                            <i class="fa fa-list"></i>
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</div>

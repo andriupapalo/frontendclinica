@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card animated animated flipInY">
+            <div class="card-header">
+                <h4>Manejo de pacientes </h4>
+            </div>
+            <div class="card-body">
+                <form class="form">
+                    <div class="input-group">
+                        <div class="form-group">
+                            <input name="NumeroIdentificacion1" type="text" [(ngModel)]="model.numeroidentificacion"
+                                class="form-control" placeholder="Numero de Identificacion" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="NombreCompleto1" type="text" [(ngModel)]="model.nombrecompleto" class="form-control"
+                                placeholder="Nombre Completo" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="NumeroSeguroSocial1" type="text" [(ngModel)]="model.numerosegurosocial"
+                                class="form-control" placeholder="Numero de seguro social" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="CodigoPostal1" type="text" [(ngModel)]="model.codigopostal" class="form-control"
+                                placeholder="Codigo Postal" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input name="TelefonoContacto1" type="text" [(ngModel)]="model.telefonocontacto"
+                                class="form-control" placeholder="Telefono de contacto" value="" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Email1" [(ngModel)]="model.email" class="form-control"
+                                placeholder="Email" value="">
+                        </div>
+                        <div class="form-group">
+                            <input name="Edad1" type="number" [(ngModel)]="model.edad" class="form-control" placeholder="Edad"
+                                value=0>
+                        </div>
+                        <div class="form-group">
+                            <input name="sexo1" type="text" [(ngModel)]="model.sexo" class="form-control"
+                                placeholder="Sexo  M/F" value="">
+                        </div>
+                        <div *ngIf="metodoadd" class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit" (click)="addpaciente($event)"> Grabar</button>
+                        </div>
+                        <div *ngIf="metodoact" class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit" (click)="updatepaciente()"> Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1 class="text-center">Lista de Pacientes</h1>
+<div class="row">
+    <div class="col-md-9 mx-auto">
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Identificacion</th>
+                    <th>Nro.seguro.Social</th>
+                    <th>Borrar</th>
+                    <th>Editar</th>
+                    <th>Lis_Doct</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            <tbody>
+                <tr *ngFor="let pa of pacientes;let i=index">
+
+                    <td >
+                         {{pa.nombreCompleto}}
+                    <td >
+                        {{pa.numeroIdentificacion}}
+                    </td>
+                    <td>
+                        {{pa.numeroSeguroSocial}}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="borrapaciente(pa.id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                    <td class="align-center">
+                        <button class="btn btn-primary" (click)="editpaciente(i)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
+                    <td class="align-center">
+                        <button class="btn btn-success" (click)="listdoctores(pa)">
+                            <i class="fa fa-list"></i>
+                        </button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
