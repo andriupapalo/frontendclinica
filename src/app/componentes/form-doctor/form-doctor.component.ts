@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DoctorDataService } from '../../servicios/doctor-data.service';
 import {} from 'rxjs';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +15,14 @@ export class FormDoctorComponent implements OnInit {
   doctores:Doctor[];
   metodoadd:boolean=true;
   metodoact:boolean=false;
+  verdetalle:boolean=false;
+
+  arraydet:any=new Array();
+  regdit:any=[];
+  paciDetalle:any=[];
+
+
+
   constructor(private doctorDataService:DoctorDataService) { 
     this.doctorDataService.getdoctor()
     .subscribe(doctor=>{
@@ -31,6 +39,7 @@ export class FormDoctorComponent implements OnInit {
       this.doctores.push(doct)
       this.metodoadd=true;
       this.metodoact=false;
+      this.model1={};
     });
   }
   
@@ -56,15 +65,10 @@ export class FormDoctorComponent implements OnInit {
   }
 
   editdoctor(i){
-    this.model1.numeroCredencial=this.doctores[i].numeroCredencial;
-    this.model1.nombreCompleto=this.doctores[i].nombreCompleto;
-    this.model1.especialidad=this.doctores[i].especialidad;
-    this.model1.telefonoContacto=this.doctores[i].telefonoContacto;
-    this.model1.email=this.doctores[i].email;
-    this.model1.hospitalDeTrabajo=this.doctores[i].hospitalDeTrabajo;
-    this.model1.id=this.doctores[i].id,
+    this.model1=this.doctores[i];
     this.metodoadd=false;
     this.metodoact=true;
+
   }
 
   updatedoctor()
@@ -75,26 +79,29 @@ export class FormDoctorComponent implements OnInit {
         {
           if(this.doctores[i].id==this.model1.id)
           {
-            this.doctores[i].numeroCredencial=data.numeroCredencial;
-            this.doctores[i].nombreCompleto=data.nombreCompleto;
-            this.doctores[i].especialidad=data.especialidad;
-            this.doctores[i].telefonoContacto=data.telefonoContacto;
-            this.doctores[i].email=data.email;
-            this.doctores[i].hospitalDeTrabajo=data.hospitalDeTrabajo;
-            this.doctores[i].id=data.id
+            this.doctores[i]=data;
           }
         }
       });
+      this.model1={};
       this.metodoadd=true;
       this.metodoact=false;
   }
-  limpiar()
+  listpacientes(id)
   {
-    this.model1.numeroCredencial="";
-    this.model1.nombreCompleto="";
-    this.model1.especialidad="";
-    this.model1.telefonoContacto="";
-    this.model1.email="";
-    this.model1.hospitalDeTrabajo="";
+    this.arraydet=new Array();
+    this.verdetalle=true;
+    this.doctorDataService.getdoctordetalle(id)
+    .subscribe(pacidet=>{
+      this.paciDetalle=pacidet;
+      for (let i=0;i<this.paciDetalle.doctorPacientes.length;i++)
+        {
+          this.regdit={"nombreCompleto":this.paciDetalle.doctorPacientes[i].paciente.nombreCompleto,
+                      "numeroSeguroSocial":this.paciDetalle.doctorPacientes[i].paciente.numeroSeguroSocial,
+                      "pacienteid":this.paciDetalle.doctorPacientes[i].paciente.id,
+                      "doctorid":id};
+            this.arraydet.push(this.regdit);
+      }
+    });
   }
 }

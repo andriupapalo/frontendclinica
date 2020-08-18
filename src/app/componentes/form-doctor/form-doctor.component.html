@@ -45,9 +45,10 @@
     </div>
 </div>
 
+
 <h1 class="text-center">Lista de Doctores</h1>
 <div class="row">
-    <div class="col-md-9 mx-auto">
+    <div class="col-md-8 mx-auto">
         <table class="table" border="1">
             <thead>
                 <tr>
@@ -83,7 +84,7 @@
                         </button>
                     </td>
                     <td class="align-center">
-                        <button class="btn btn-success" (click)="listpacientes(pa)">
+                        <button class="btn btn-success" (click)="listpacientes(pa.id)">
                             <i class="fa fa-list"></i>
                         </button>
                     </td>
@@ -91,6 +92,28 @@
 
             </tbody>
 
+        </table>
+    </div>
+
+    <div *ngIf="verdetalle && arraydet.length!==0" class="col-md-4 mx-auto">
+        <h1 class="text-center">Lista de Pacientes</h1>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Nom.Paciente</th>
+                    <th>Num.Seg.Social</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let arrayDet of arraydet;let i=index">
+                    <td>
+                        {{arrayDet.nombreCompleto}}
+                    </td>
+                    <td>
+                        {{arrayDet.numeroSeguroSocial}}
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>

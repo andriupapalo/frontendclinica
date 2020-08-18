@@ -8,42 +8,44 @@
                 <form class="form">
                     <div class="input-group">
                         <div class="form-group">
-                            <input name="NumeroIdentificacion1" type="text" [(ngModel)]="model.numeroidentificacion"
-                                class="form-control" placeholder="Numero de Identificacion" value="" autofocus>
+                            <input name="NumeroIdentificacion1" type="text" [(ngModel)]="model.numeroIdentificacion" required
+                                class="form-control" placeholder="Numero de Identificacion" value="" autofocus >
                         </div>
                         <div class="form-group">
-                            <input name="NombreCompleto1" type="text" [(ngModel)]="model.nombrecompleto" class="form-control"
-                                placeholder="Nombre Completo" value="" autofocus>
+                            <input name="NombreCompleto1" type="text" [(ngModel)]="model.nombreCompleto" required
+                                class="form-control" placeholder="Nombre Completo" value="" autofocus>
                         </div>
                         <div class="form-group">
-                            <input name="NumeroSeguroSocial1" type="text" [(ngModel)]="model.numerosegurosocial"
+                            <input name="NumeroSeguroSocial1" type="text" [(ngModel)]="model.numeroSeguroSocial" required
                                 class="form-control" placeholder="Numero de seguro social" value="" autofocus>
                         </div>
                         <div class="form-group">
-                            <input name="CodigoPostal1" type="text" [(ngModel)]="model.codigopostal" class="form-control"
-                                placeholder="Codigo Postal" value="" autofocus>
+                            <input name="CodigoPostal1" type="text" [(ngModel)]="model.codigoPostal" required
+                                class="form-control" placeholder="Codigo Postal" value="" autofocus>
                         </div>
                         <div class="form-group">
-                            <input name="TelefonoContacto1" type="text" [(ngModel)]="model.telefonocontacto"
+                            <input name="TelefonoContacto1" type="text" [(ngModel)]="model.telefonoContacto" required
                                 class="form-control" placeholder="Telefono de contacto" value="" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="Email1" [(ngModel)]="model.email" class="form-control"
+                            <input type="text" name="Email1" [(ngModel)]="model.email" class="form-control" required
                                 placeholder="Email" value="">
                         </div>
                         <div class="form-group">
-                            <input name="Edad1" type="number" [(ngModel)]="model.edad" class="form-control" placeholder="Edad"
-                                value=0>
+                            <input name="Edad1" type="number" [(ngModel)]="model.edad" class="form-control" required
+                                placeholder="Edad" value=0>
                         </div>
                         <div class="form-group">
-                            <input name="sexo1" type="text" [(ngModel)]="model.sexo" class="form-control"
+                            <input name="sexo1" type="text" [(ngModel)]="model.sexo" required class="form-control" 
                                 placeholder="Sexo  M/F" value="">
                         </div>
                         <div *ngIf="metodoadd" class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit" (click)="addpaciente($event)"> Grabar</button>
+                            <button class="btn btn-primary btn-block" type="submit" (click)="addpaciente($event)">
+                                Grabar</button>
                         </div>
                         <div *ngIf="metodoact" class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit" (click)="updatepaciente()"> Actualizar</button>
+                            <button class="btn btn-primary btn-block" type="submit" (click)="updatepaciente()">
+                                Actualizar</button>
                         </div>
                     </div>
                 </form>
@@ -52,9 +54,9 @@
     </div>
 </div>
 
-<h1 class="text-center">Lista de Pacientes</h1>
 <div class="row">
-    <div class="col-md-9 mx-auto">
+    <div class="col-md-8 mx-auto">
+        <h1 class="text-center">Lista de Pacientes</h1>
         <table class="table" border="1">
             <thead>
                 <tr>
@@ -71,10 +73,9 @@
 
             <tbody>
                 <tr *ngFor="let pa of pacientes;let i=index">
-
-                    <td >
-                         {{pa.nombreCompleto}}
-                    <td >
+                    <td>
+                        {{pa.nombreCompleto}}
+                    <td>
                         {{pa.numeroIdentificacion}}
                     </td>
                     <td>
@@ -91,15 +92,35 @@
                         </button>
                     </td>
                     <td class="align-center">
-                        <button class="btn btn-success" (click)="listdoctores(pa)">
+                        <button class="btn btn-success" (click)="listdoctores(pa.id)">
                             <i class="fa fa-list"></i>
                         </button>
-                    </td>
-
+                   </td>
                 </tr>
-
             </tbody>
-
         </table>
+    </div>
+
+    <div *ngIf="verdetalle && arraydet.length!==0" class="col-md-4 mx-auto">
+        <h1 class="text-center">Lista de Doctores</h1>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Nom.Doctor</th>
+                    <th>Especialidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let arrayDet of arraydet;let i=index">
+                    <td>
+                        {{arrayDet.nombredoctor}}
+                    </td>
+                    <td>
+                        {{arrayDet.especialidad}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>

@@ -29,4 +29,10 @@ export class DoctorDataService {
     return this.http.delete<Doctor>(`${this.url}/api/Doctores/${id}`)
     .map(res=>res);
    }
+   getdoctordetalle(id)
+   {
+    return this.http.get(`${this.url}/api/Doctores/Detalle/${id}`)
+    .map(res=>res);
+   }
+
 }

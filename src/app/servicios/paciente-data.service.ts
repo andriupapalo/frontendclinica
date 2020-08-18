@@ -11,7 +11,8 @@ export class PacienteDataService {
   isagregar:boolean=false;
 
   constructor(private http:HttpClient) { }
-    getpaciente(){
+   
+  getpaciente(){
     return this.http.get<Paciente[]>(`${this.url}/api/Pacientes`)
     .map(res=>res);
   }
@@ -27,6 +28,12 @@ export class PacienteDataService {
 
   erasepaci(id){
     return this.http.delete<Paciente>(`${this.url}/api/Pacientes/${id}`)
+    .map(res=>res);
+   }
+
+   getpacientedetalle(id)
+   {
+    return this.http.get(`${this.url}/api/Pacientes/Detalle/${id}`)
     .map(res=>res);
    }
 }

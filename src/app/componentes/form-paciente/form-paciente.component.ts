@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PacienteDataService } from '../../servicios/paciente-data.service';
 import {} from 'rxjs';
 import { FormsModule } from '@angular/forms';
@@ -10,15 +10,19 @@ import { Paciente } from '../../modelos/Paciente';
   styleUrls: ['./form-paciente.component.css']
 })
 export class FormPacienteComponent implements OnInit {
-  model:any={};
   pacientes:Paciente[];
+  regdit:any=[];
+  arraydet:any=new Array();
+  paciDetalle:any=[];
+  model:Paciente=new Paciente;
   metodoadd:boolean=true;
   metodoact:boolean=false;
+  verdetalle:boolean=false;
+
   constructor(private pacienteDataService:PacienteDataService) { 
     this.pacienteDataService.getpaciente()
     .subscribe(paciente=>{
-      this.pacientes=paciente
-      console.log(this.pacientes)
+      this.pacientes=paciente;
     });
   }
   ngOnInit(): void {
@@ -29,12 +33,11 @@ export class FormPacienteComponent implements OnInit {
     this.pacienteDataService.addpaciente(this.model)
     .subscribe(pacient=>{
       this.pacientes.push(pacient)
-      console.log("entre por adicionar")
       this.metodoadd=true;
       this.metodoact=false;
+      this.model=new Paciente();
     });
   }
-  
   borrapaciente(id)
   {
     const pacientes=this.pacientes;
@@ -57,53 +60,43 @@ export class FormPacienteComponent implements OnInit {
   }
 
   editpaciente(i){
-    this.model.numeroidentificacion=this.pacientes[i].numeroIdentificacion;
-    this.model.nombrecompleto=this.pacientes[i].nombreCompleto;
-    this.model.numerosegurosocial=this.pacientes[i].numeroSeguroSocial;
-    this.model.codigopostal=this.pacientes[i].codigoPostal,
-    this.model.telefonocontacto=this.pacientes[i].telefonoContacto,
-    this.model.email=this.pacientes[i].email,
-    this.model.edad=this.pacientes[i].edad,
-    this.model.sexo=this.pacientes[i].sexo,
-    this.model.id=this.pacientes[i].id,
+    this.model=this.pacientes[i];
     this.metodoadd=false;
     this.metodoact=true;
   }
-
   updatepaciente()
   {
-    console.log("entramos a acutualizar");
     this.pacienteDataService.edipaciente(this.model)
     .subscribe(data=>{
         for(let i=0;i<this.pacientes.length;i++)
         {
           if(this.pacientes[i].id==this.model.id)
           {
-            this.pacientes[i].numeroIdentificacion=data.numeroIdentificacion;
-            this.pacientes[i].nombreCompleto=data.nombreCompleto;
-            this.pacientes[i].numeroSeguroSocial=data.numeroSeguroSocial;
-            this.pacientes[i].codigoPostal=data.codigoPostal,
-            this.pacientes[i].telefonoContacto=data.telefonoContacto,
-            this.pacientes[i].email=data.email,
-            this.pacientes[i].edad=data.edad,
-            this.pacientes[i].sexo=data.sexo,
-            this.pacientes[i].id=data.id
+            this.pacientes[i]=data;
           }
         }
       });
       this.metodoadd=true;
       this.metodoact=false;
+      this.model=new Paciente();
   }
-  limpiar()
+
+  listdoctores(id)
   {
-    this.model.numeroidentificacion="";
-    this.model.nombrecompleto="";
-    this.model.numerosegurosocial="";
-    this.model.codigopostal="";
-    this.model.telefonocontacto="";
-    this.model.email="";
-    this.model.edad="";
-    this.model.sexo="";
-    this.model.id=0;
+    this.arraydet=new Array();
+    this.verdetalle=true;
+    this.pacienteDataService.getpacientedetalle(id)
+    .subscribe(pacidet=>{
+      this.paciDetalle=pacidet;
+      for (let i=0;i<this.paciDetalle.doctorPacientes.length;i++)
+        {
+          this.regdit={"nombredoctor":this.paciDetalle.doctorPacientes[i].doctor.nombreCompleto,
+                          "especialidad":this.paciDetalle.doctorPacientes[i].doctor.especialidad,
+                              "doctorid":this.paciDetalle.doctorPacientes[i].doctor.id,
+                            "pacienteid":25};
+            this.arraydet.push(this.regdit);
+      }
+    });
   }
 }
+
